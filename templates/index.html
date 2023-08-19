@@ -21,15 +21,7 @@
 	<h1>Oackland API Portfolio</h1>
 </header>
 <section>
-	<div class="colores"></div>
-	<div class="colores"></div>
-	<div class="colors"></div>
 	<div class="box">
-		<div class="square" style="--i:0;"></div>
-		<div class="square" style="--i:1;"></div>
-		<div class="square" style="--i:2;"></div>
-		<div class="square" style="--i:3;"></div>
-		<div class="square" style="--i:4;"></div>
 		<div class="container">
 			<div class="form">
 				<h2 style="text-align: center">POKEDEX</h2>
@@ -46,14 +38,16 @@
 			<div id="pokemonData" style="text-align: center;">
 				{% if pokemon_data %}
 					<h2>{{ pokemon_data.name }}</h2>
-					<p>Base Experience: <span>{{ pokemon_data.base_experience }}</span></p>
+					<p>Base Experience: <span>{{ pokemon_data.hp }}</span></p>
 					<p>Ability: <span>{{ pokemon_data.ability }}</span></p>
+					<p>Attack: <span>{{ pokemon_data.attack }}</span></p>
+					<p>Defense: <span>{{ pokemon_data.defense }}</span></p>
 					<img src="{{ pokemon_data.sprite_url }}" alt="Pokemon Sprite">
 				{% endif %}
-			</div>
-			<div id="errorDiv" style="color: red; text-align: center;">
 				{% if error_message %}
-					<p>{{ error_message }}</p>
+					<div id="errorDiv" style="color: red;">
+						<p>{{ error_message }}</p>
+					</div>
 				{% endif %}
 			</div>
 		</div>

@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-	return render_template("index.html")
+	return render_template("index.html", pokemon_data=None, error_message=None)
 
 
 @app.route("/fetch_pokemon_data", methods=["POST"])
@@ -27,11 +27,11 @@ def fetch_pokemon_data():
 				"ability":    data["abilities"][0]["ability"]["name"]
 		}
 
-		return jsonify(pokemon_data)
+		return render_template("index.html", pokemon_data=pokemon_data, error_message=None)
 
 	except requests.exceptions.RequestException as e:
 		error_message = f"Error fetching Pokémon data: {str(e)}"
-		return jsonify({"error": error_message})
+		return render_template("index.html", pokemon_data=None, error_message=error_message)
 
 
 if __name__ == "__main__":
