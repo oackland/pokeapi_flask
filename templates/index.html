@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html lang="en">
 
 <head>
 	<meta charset="UTF-8">
@@ -18,8 +18,7 @@
 
 <body>
 <header>
-	<h1>Oackland
-		API Portfolio</h1>
+	<h1>Oackland API Portfolio</h1>
 </header>
 <section>
 	<div class="colores"></div>
@@ -33,112 +32,33 @@
 		<div class="square" style="--i:4;"></div>
 		<div class="container">
 			<div class="form">
-				<h2 STYLE="text-align: center">POKEDEX</h2>
-				<form>
+				<h2 style="text-align: center">POKEDEX</h2>
+				<form action="/fetch_pokemon_data" method="post">
 					<div class="inp">
 						<label for="pokemonName" class="insert_label">Enter Pokémon Name:</label>
 						<input type="text" id="pokemonName" name="pokemonName">
 					</div>
 					<div class="lbtn">
-						<button type="button" onclick="fetchPokemonData()">Fetch Data</button>
-					</div>
-					<div id="pokemonData" style="display: none; text-align: center;">
-						<h2 id="pokemonNameDisplay"></h2>
-						<p>Base Experience: <span id="baseExperience"></span></p>
-						<p>Ability: <span id="ability"></span></p>
-						<img id="pokemonSprite" alt="Pokemon Sprite">
-					</div>
-					<div id="errorDiv" style="display: none; text-align: center; color: red;">
-						<p id="errorMessage"></p>
+						<button type="submit">Fetch Data</button>
 					</div>
 				</form>
+			</div>
+			<div id="pokemonData" style="text-align: center;">
+				{% if pokemon_data %}
+					<h2>{{ pokemon_data.name }}</h2>
+					<p>Base Experience: <span>{{ pokemon_data.base_experience }}</span></p>
+					<p>Ability: <span>{{ pokemon_data.ability }}</span></p>
+					<img src="{{ pokemon_data.sprite_url }}" alt="Pokemon Sprite">
+				{% endif %}
+			</div>
+			<div id="errorDiv" style="color: red; text-align: center;">
+				{% if error_message %}
+					<p>{{ error_message }}</p>
+				{% endif %}
 			</div>
 		</div>
 	</div>
 </section>
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-<script>
-	particlesJS("particles-js", {
-		particles: {
-			number: {
-				value: 100
-			},
-			color: {
-				value: "#ffffff"
-			},
-			shape: {
-				type: "circle"
-			},
-			opacity: {
-				value: 0.7
-			},
-			size: {
-				value: 3
-			},
-			move: {
-				speed: 1
-			}
-		},
-		interactivity: {
-			events: {
-				onhover: {
-					enable: true,
-					mode: "repulse"
-				}
-			}
-		}
-	});
-</script>
-<script>
-	function fetchPokemonData() {
-		const pokemonName = document.getElementById("pokemonName").value;
-
-		// Call the Python API using Flask
-		fetch("/fetch_pokemon_data", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/x-www-form-urlencoded"
-			},
-			body: `pokemonName=${pokemonName}`
-		})
-				.then(response => response.json())
-				.then(data => {
-					if (data.error) {
-						const errorDiv = document.getElementById("errorDiv");
-						const errorMessage = document.getElementById("errorMessage");
-						const pokemonDataDiv = document.getElementById("pokemonData");
-						errorMessage.textContent = data.error;
-						errorDiv.style.display = "block";
-						pokemonDataDiv.style.display = "none";
-					} else {
-						const pokemonDataDiv = document.getElementById("pokemonData");
-						const pokemonNameDisplay = document.getElementById("pokemonNameDisplay");
-						const baseExperience = document.getElementById("baseExperience");
-						const ability = document.getElementById("ability");
-						const pokemonSprite = document.getElementById("pokemonSprite");
-						const errorDiv = document.getElementById("errorDiv");
-
-						pokemonNameDisplay.textContent = data.name;
-						baseExperience.textContent = data.base_experience;
-						ability.textContent = data.ability;
-						pokemonSprite.src = data.sprite_url;
-
-						pokemonDataDiv.style.display = "block";
-						errorDiv.style.display = "none";
-					}
-				})
-				.catch(error => {
-					console.error("Error fetching Pokémon data:", error);
-					const errorDiv = document.getElementById("errorDiv");
-					const errorMessage = document.getElementById("errorMessage");
-					const pokemonDataDiv = document.getElementById("pokemonData");
-
-					errorMessage.textContent = `Error: ${error.message}`;
-					errorDiv.style.display = "block";
-					pokemonDataDiv.style.display = "none";
-				});
-	}
-</script>
 </body>
 
 </html>

@@ -19,13 +19,12 @@ def fetch_pokemon_data():
 		data = response.json()
 
 		pokemon_data = {
-				"name":            data["name"],
-				"ability":         data["abilities"][0]["ability"]["name"],
-				"base_experience": data["base_experience"],
-				"sprite_url":      data["sprites"]["front_default"],
-				"attack":          data["stats"][1]["base_stat"],
-				"hp":              data["stats"][0]["base_stat"],
-				"defense":         data["stats"][2]["base_stat"]
+				"name":       data["name"],
+				"hp":         data["stats"][0]["base_stat"],
+				"defense":    data["stats"][2]["base_stat"],
+				"attack":     data["stats"][1]["base_stat"],
+				"sprite_url": data["sprites"]["front_shiny"],
+				"ability":    data["abilities"][0]["ability"]["name"]
 		}
 
 		return jsonify(pokemon_data)
