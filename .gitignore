@@ -1,3 +1,4 @@
-!/pokeapi_flask.iml
-!/.idea/
-!/pokeapi_flask.iml
+/pokeapi_flask.iml
+/.idea/
+pokeapi_flask.iml
+.env
