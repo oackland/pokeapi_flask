@@ -2,3 +2,4 @@
 /.idea/
 pokeapi_flask.iml
 .env
+venv
