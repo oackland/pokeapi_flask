@@ -19,6 +19,11 @@ def contacts():
 	return render_template("contacts.html")
 
 
+@bp.route("/login")
+def login():
+	return render_template("login.html")
+
+
 @bp.route("/signup")
 def signup():
 	return render_template("signup.html")
@@ -47,14 +52,8 @@ def fetch_pokemon_data():
 				"ability":    data["abilities"][0]["ability"]["name"]
 		}
 
-		return render_template(
-			"base.html",
-			content=render_template("pokedex.html", pokemon_data=pokemon_data, error_message=None)
-		)
+		return render_template("game.html", pokemon_data=pokemon_data, error_message=None)
 
 	except requests.exceptions.RequestException as e:
 		error_message = f"Error fetching Pokémon data: {str(e)}"
-		return render_template(
-			"base.html",
-			content=render_template("pokedex.html", pokemon_data=None, error_message=error_message)
-		)
+		return render_template("game.html", pokemon_data=None, error_message=error_message)
