@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+<title>{% block title %}Sign up{% endblock %}</title>
 {% block content %}
 	<section class="py-5">
 		<div class="container py-5">
@@ -20,14 +20,33 @@
 								</svg>
 							</div>
 							<form method="post">
-								<div class="mb-3"><input class="form-control" type="email" name="email"
-								                         placeholder="Email"></div>
-								<div class="mb-3"><input class="form-control" type="password" name="password"
-								                         placeholder="Password"></div>
+								{{ form.hidden_tag() }}
 								<div class="mb-3">
-									<button class="btn btn-primary shadow d-block w-100" type="submit">Sign up</button>
+									{{ form.first_name.label(class='form-label') }}
+									{{ form.first_name(class='form-control') }}
 								</div>
-								<p class="text-muted">Already have an account?&nbsp;<a href="login.html">Log in</a></p>
+								<div class="mb-3">
+									{{ form.last_name.label(class='form-label') }}
+									{{ form.last_name(class='form-control') }}
+								</div>
+								<div class="mb-3">
+									{{ form.last_name.label(class='form-label') }}
+									{{ form.last_name(class='form-control') }}
+								</div>
+								<div class="mb-3">
+									{{ form.password.label(class='form-label') }}
+									{{ form.password(class='form-control') }}
+								</div>
+								<div class="mb-3">
+									{{ form.confirm_password.label(class='form-label') }}
+									{{ form.confirm_password(class='form-control') }}
+								</div>
+								<div class="mb-3">
+									{{ form.submit_btn.label(class='btn btn-primary shadow d-block w-100') }}
+
+								</div>
+								<p class="text-muted">Already have an account?&nbsp;<a href="login.html">Log in</a>
+								</p>
 							</form>
 						</div>
 					</div>

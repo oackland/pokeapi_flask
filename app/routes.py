@@ -1,7 +1,7 @@
 import requests
 from flask import Blueprint, render_template, request
 
-from .forms import LoginForm
+from .forms import LoginForm, SignupForm
 
 bp = Blueprint("pokemon", __name__)
 
@@ -38,6 +38,12 @@ def login():
 @bp.route('/signup', methods=['GET', 'POST'])
 def signup():
 	form = SignupForm()
+	if request.method == 'POST' and form.validate_on_submit():
+		name = f'{form.first_name.data} {form.last_name.data}'
+		email = form.email.data
+		password = form.password.data
+	else:
+		return render_template('signup.html', form=form)
 
 
 @bp.route('/students')
@@ -61,9 +67,9 @@ def contacts():
 	return render_template("contacts.html")
 
 
-@bp.route("/signup")
-def signup():
-	return render_template("signup.html")
+# @bp.route("/signup")
+# def signup():
+# 	return render_template("signup.html")
 
 
 @bp.route("/game")
