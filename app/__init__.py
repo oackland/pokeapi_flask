@@ -10,4 +10,4 @@ from . import routes
 app.register_blueprint(pokemon_bp)
 
 if __name__ == "__main__":
-	app.run(debug=True)
+	app.run()

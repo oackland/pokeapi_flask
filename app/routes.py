@@ -11,14 +11,25 @@ def post(post_id):
 	return f'This is post number {post_id}'
 
 
+REGISTERED_USERS = {
+		'oackland@gmail.com': {
+				'name':     'Oackland Toro',
+				'password': '1234'
+		}
+}
+
+
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
 	form = LoginForm()
 	if request.method == 'POST' and form.validate_on_submit():
-		email = request.form.get('email')
-		password = request.form.get('password')
-		print('validated')
-		return f'Email: {email}, Password: {password}'
+		email = form.email.data
+		password = form.password.data
+		if email in REGISTERED_USERS and password == REGISTERED_USERS[email]['password']:
+			return f'Hello, {REGISTERED_USERS[email]["name"]}'
+		else:
+			return 'Invalid email or password'
+
 	else:
 		print('not validated')
 		return render_template('login.html', form=form)
