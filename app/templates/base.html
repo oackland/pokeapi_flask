@@ -13,7 +13,8 @@
 
 <body>
 <nav class="navbar navbar-expand-md sticky-top py-3 navbar-dark" id="mainNav">
-	<div class="container"><a class="navbar-brand d-flex align-items-center" href="app/static"><span>Toro Pokemon</span></a>
+	<div class="container"><a class="navbar-brand d-flex align-items-center" href="{{ url_for('pokemon.home') }}"><span>Toro
+		Pokemon</span></a>
 		<button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span
 				class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
 		<div class="collapse navbar-collapse" id="navcol-1">
@@ -45,19 +46,17 @@
 				</ul>
 			</div>
 			<div class="col-lg-3 text-center text-lg-start d-flex flex-column align-items-center order-first align-items-lg-start order-lg-last">
-				<div class="fw-bold d-flex align-items-center mb-2"><span
-						class="bs-icon-sm bs-icon-circle bs-icon-primary d-flex justify-content-center align-items-center bs-icon me-2"><svg
-
-						viewBox="0 0 24 24" width="1em" fill="currentColor">
-                            <rect fill="none" height="24" width="24"></rect>
-                            <path d="M14.5,12c0,1.38-1.12,2.5-2.5,2.5c-1.38,0-2.5-1.12-2.5-2.5s1.12-2.5,2.5-2.5C13.38,9.5,14.5,10.62,14.5,12z M22,12 c0,5.52-4.48,10-10,10C6.48,22,2,17.52,2,12S6.48,2,12,2C17.52,2,22,6.48,22,12z M20,12h-4c0-2.21-1.79-4-4-4c-2.21,0-4,1.79-4,4H4 c0,4.41,3.59,8,8,8C16.41,20,20,16.41,20,12z"></path>
-                        </svg></span><span>Toro Pokemon API</span></div>
-				<p class="text-muted">Sem eleifend donec molestie, integer quisque orci aliquam.</p>
+				<div class="fw-bold d-flex align-items-center mb-2"><
+					class="bs-icon-sm bs-icon-circle bs-icon-primary d-flex justify-content-center align-items-center
+					bs-icon me-2">
+					<rect fill="none" height="24" width="24"></rect>
+					<span>Toro's Pokemon API</span></div>
+				<p class="text-muted">Lorem ipsum</p>
 			</div>
 		</div>
 		<hr>
 		<div class="text-muted d-flex justify-content-between align-items-center pt-3">
-			<p class="mb-0">Toro © 2023 Brand</p>
+			<p class="mb-0">Toro's Pokemon Api © 2023</p>
 		</div>
 	</div>
 </footer>

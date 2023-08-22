@@ -1,5 +1,11 @@
 import os
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
-DATABASE_URL = os.environ.get('DATABASE_URL')
-API_KEY = os.environ.get('API_KEY')
+
+class Config():
+	FLASK_APP = os.environ.get('FLASK_APP')
+	FLASK_DEBUG = os.environ.get('FLASK_DEBUG')
+	SECRET_KEY = os.environ.get('SECRET_KEY')
+
+
+def SECRET_KEY():
+	return None

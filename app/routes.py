@@ -1,7 +1,33 @@
 import requests
 from flask import Blueprint, render_template, request
 
+from .forms import LoginForm
+
 bp = Blueprint("pokemon", __name__)
+
+
+@bp.route('/post/<int:post_id>')
+def post(post_id):
+	return f'This is post number {post_id}'
+
+
+@bp.route('/login', methods=['GET', 'POST'])
+def login():
+	form = LoginForm()
+	if request.method == 'POST' and form.validate_on_submit():
+		email = request.form.get('email')
+		password = request.form.get('password')
+		print('validated')
+		return f'Email: {email}, Password: {password}'
+	else:
+		print('not validated')
+		return render_template('login.html', form=form)
+
+
+@bp.route('/students')
+def students():
+	student_list = ['Justin', 'Britt', 'Omar']
+	return render_template('students.html', students=student_list)
 
 
 @bp.route('/')
@@ -17,11 +43,6 @@ def projects():
 @bp.route("/contact")
 def contacts():
 	return render_template("contacts.html")
-
-
-@bp.route("/login")
-def login():
-	return render_template("login.html")
 
 
 @bp.route("/signup")
@@ -57,3 +78,7 @@ def fetch_pokemon_data():
 	except requests.exceptions.RequestException as e:
 		error_message = f"Error fetching Pokémon data: {str(e)}"
 		return render_template("game.html", pokemon_data=None, error_message=error_message)
+
+
+if __name__ == '__main__':
+	app.run()

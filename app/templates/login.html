@@ -19,12 +19,16 @@
 								</svg>
 							</div>
 							<form method="post">
-								<div class="mb-3"><input class="form-control" type="email" name="email"
-								                         placeholder="Email"></div>
-								<div class="mb-3"><input class="form-control" type="password" name="password"
-								                         placeholder="Password"></div>
+								{{ form.hidden_tag() }}
 								<div class="mb-3">
-									<button class="btn btn-primary shadow d-block w-100" type="submit">Log in</button>
+									{{ form.email(class='form-control', placeholder='Enter your email') }}
+
+								</div>
+								<div class="mb-3">
+									{{ form.password(class='form-control') }}
+								</div>
+								<div class="mb-3">
+									{{ form.submit_btn(class='btn btn-primary shadow d-block w-100') }}
 								</div>
 								<p class="text-muted">Forgot your password?</p>
 							</form>

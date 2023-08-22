@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<section style="display:flex; flex-direction: column; justify-content: center">
-		<div class="box">
-			<div class="container">
-				<div class="form">
-					<h2 style="text-align: center">POKEDEX</h2>
+	<section id="poke_section">
+		<div class="box" id="poke_box">
+			<div class="container" id="poke_container">
+				<div class="form" id="poke_form">
+					<h2>POKEDEX</h2>
 					<form action="/fetch_pokemon_data" method="post">
 						<div class="poke_container">
-							<div class="inp">
+							<div class="poke_inp">
 								<label for="pokemonName" class="insert_label">Enter Pokémon Name:</label>
 								<input type="text" id="pokemonName" name="pokemonName" required>
 							</div>
 							<div class="lbtn">
-								<button type="submit">Fetch Data</button>
+								<button id="poke_button" type="submit">Fetch Data</button>
 							</div>
 						</div>
 					</form>
