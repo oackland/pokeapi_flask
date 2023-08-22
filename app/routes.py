@@ -35,6 +35,11 @@ def login():
 		return render_template('login.html', form=form)
 
 
+@bp.route('/signup', methods=['GET', 'POST'])
+def signup():
+	form = SignupForm()
+
+
 @bp.route('/students')
 def students():
 	student_list = ['Justin', 'Britt', 'Omar']
