@@ -1,6 +1,6 @@
 import requests
 from flask import Blueprint, render_template, request, flash, url_for, redirect
-from flask_login import login_user
+from flask_login import login_user, logout_user, login_required
 from werkzeug.security import check_password_hash
 
 from .forms import LoginForm, SignupForm
@@ -18,14 +18,6 @@ bp = Blueprint("pokemon", __name__)
 @bp.route('/index')
 def home():
 	return render_template('index.html')
-
-
-REGISTERED_USERS = {
-		'oackland@gmail.com': {
-				'name':     'Oackland Toro',
-				'password': '1234'
-		}
-}
 
 
 @bp.route('/login', methods=['GET', 'POST'])
@@ -60,24 +52,25 @@ def signup():
 		db.session.add(new_user)
 		db.session.commit()
 		flash(f'Thank you for been a user {new_user.first_name}!', 'primary')
-		return redirect(url_for('pokemon.home'))
+		return redirect(url_for('pokemon.login'))
 
 	else:
 		return render_template('signup.html', form=form)
 
 
-@bp.route('/students')
-def students():
-	student_list = ['Justin', 'Britt', 'Omar']
-	return render_template('students.html', students=student_list)
+@bp.route('/logout')
+def logout():
+	logout_user()
+	return render_template('index.html')
 
 
 @bp.route("/projects")
 def projects():
-	return render_template("projects.html")
+	return redirect(url_for('pokemon.projects'))
 
 
 @bp.route("/contact")
+@login_required
 def contacts():
 	return render_template("contacts.html")
 
@@ -88,8 +81,9 @@ def contacts():
 
 
 @bp.route("/game")
+@login_required
 def game():
-	return render_template("game.html", pokemon_data=None, error_message=None)
+	return render_template("game.html", pokemon_data="pikachu", error_message=None)
 
 
 @bp.route("/fetch_pokemon_data", methods=["POST"])

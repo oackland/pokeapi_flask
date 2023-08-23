@@ -1,12 +1,13 @@
 from datetime import datetime
 
+from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash
 
 db = SQLAlchemy()
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
 	first_name = db.Column(db.String, nullable=False)
 	last_name = db.Column(db.String, nullable=False)
@@ -19,6 +20,16 @@ class User(db.Model):
 		self.last_name = last_name
 		self.email = email
 		self.password = generate_password_hash(password)
+# Implement the UserMixin methods
+
+
+def get_id(self):
+	return str(self.id)  # Convert to string to satisfy the UserMixin requirement
+
+
+@property
+def is_active(self):
+	return True
 
 
 class Post(db.Model):
