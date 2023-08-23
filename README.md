@@ -15,7 +15,10 @@ as far I keep working will maintain this up to date
 
 This repo has been Licensed and signed.
 
-![Alt_text](/app/static/Screenshot%202023-08-22%20093404.png "html format")
+Screenshot to track history of how this has been getting better.
+![Alt_text](/app/static/back_card.png "html format")
+![Alt_text](/app/static/22aug23.png "html format")
+![Alt_text](/app/static/Screenshot%202023-08-22%20093404.png "html format")`
 ![Alt_text](/app/static/Screenshot%202023-08-22%20092934.png "html format")
 ![Alt text]( /app/static/Screenshot%202023-08-19%20072906.png "html format")
 ![Alt text]( /app/static/Screenshot%202023-08-19%20051004.png "html format")
