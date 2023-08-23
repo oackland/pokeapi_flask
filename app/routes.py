@@ -30,11 +30,11 @@ def login():
 		queried_user = User.query.filter(User.email == email).first()
 		if queried_user and check_password_hash(queried_user.password, password):
 			login_user(queried_user)
-			flash(f'Hello{queried_user.first_name}!', 'primary')
+			flash(f'Welcome back {queried_user.first_name}!', 'primary')
 			return redirect(url_for('pokemon.game'))
 		else:
 			flash('Invalid email or password', 'danger')
-			return redirect(url_for('pokemon.login'))
+			return redirect(url_for('pokemon.home'))
 	else:
 		return render_template('login.html', form=form)
 
