@@ -42,6 +42,11 @@ def signup():
 		name = f'{form.first_name.data} {form.last_name.data}'
 		email = form.email.data
 		password = form.password.data
+		REGISTERED_USERS[email] = {
+				'name':     name,
+				'password': password,
+		}
+		return f'Thank you for been a user {name}'
 	else:
 		return render_template('signup.html', form=form)
 
