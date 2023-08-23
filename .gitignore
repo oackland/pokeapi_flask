@@ -4,3 +4,4 @@ pokeapi_flask.iml
 venv
 myenv
 __pycache__/
+db.py
