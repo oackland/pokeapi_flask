@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+	Pokedex - Oakland API Portfolio
+{% endblock %}
+
+{% block content %}
+	<section>
+		<div class="box">
+			<div class="container">
+				<div class="form">
+					<h2 style="text-align: center">POKEDEX</h2>
+					<form action="/fetch_pokemon_data" method="post">
+						<div class="inp">
+							<label for="pokemonName" class="insert_label">Enter Pokémon Name:</label>
+							<input type="text" id="pokemonName" name="pokemonName" required>
+						</div>
+						<div class="lbtn">
+							<button type="submit">Fetch Data</button>
+						</div>
+					</form>
+				</div>
+				<div id="pokemonData" style="text-align: center;">
+					{% if pokemon_data %}
+						<h2>{{ pokemon_data.name }}</h2>
+						<p>Base Experience: <span>{{ pokemon_data.base_experience }}</span></p>
+						<p>Ability: <span>{{ pokemon_data.ability }}</span></p>
+						<p>Attack: <span>{{ pokemon_data.attack }}</span></p>
+						<p>Defense: <span>{{ pokemon_data.defense }}</span></p>
+						<img src="{{ pokemon_data.sprite_url }}" alt="Pokemon Sprite">
+					{% endif %}
+					{% if error_message %}
+						<div id="errorDiv" style="color: red;">
+							<p>{{ error_message }}</p>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
