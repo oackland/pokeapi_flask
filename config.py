@@ -15,5 +15,6 @@ class Config:
 							   f"{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}")
 	SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+	# this is coming next, going to be fun!!
 	API_KEY = os.getenv("API_KEY")
 	API_SECRET = os.getenv("API_SECRET")

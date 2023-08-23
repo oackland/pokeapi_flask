@@ -1,13 +1,12 @@
 from datetime import datetime
 
-from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash
 
 db = SQLAlchemy()
 
 
-class User(db.Model, UserMixin):
+class User(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	first_name = db.Column(db.String, nullable=False)
 	last_name = db.Column(db.String, nullable=False)

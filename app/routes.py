@@ -1,14 +1,23 @@
 import requests
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, flash, url_for, redirect
+from flask_login import login_user
+from werkzeug.security import check_password_hash
 
 from .forms import LoginForm, SignupForm
+from .models import User, db
 
 bp = Blueprint("pokemon", __name__)
 
 
-@bp.route('/post/<int:post_id>')
-def post(post_id):
-	return f'This is post number {post_id}'
+# @bp.route('/post/<int:post_id>')
+# def post(post_id):
+# 	return f'This is post number {post_id}'
+#
+
+@bp.route('/')
+@bp.route('/index')
+def home():
+	return render_template('index.html')
 
 
 REGISTERED_USERS = {
@@ -25,13 +34,16 @@ def login():
 	if request.method == 'POST' and form.validate_on_submit():
 		email = form.email.data
 		password = form.password.data
-		if email in REGISTERED_USERS and password == REGISTERED_USERS[email]['password']:
-			return f'Hello, {REGISTERED_USERS[email]["name"]}'
-		else:
-			return 'Invalid email or password'
 
+		queried_user = User.query.filter(User.email == email).first()
+		if queried_user and check_password_hash(queried_user.password, password):
+			login_user(queried_user)
+			flash(f'Hello{queried_user.first_name}!', 'primary')
+			return redirect(url_for('pokemon.game'))
+		else:
+			flash('Invalid email or password', 'danger')
+			return redirect(url_for('pokemon.login'))
 	else:
-		print('not validated')
 		return render_template('login.html', form=form)
 
 
@@ -39,14 +51,17 @@ def login():
 def signup():
 	form = SignupForm()
 	if request.method == 'POST' and form.validate_on_submit():
-		name = f'{form.first_name.data} {form.last_name.data}'
-		email = form.email.data
+		first_name = form.first_name.data
+		last_name = form.last_name.data
+		email = form.email.data.lower()
 		password = form.password.data
-		REGISTERED_USERS[email] = {
-				'name':     name,
-				'password': password,
-		}
-		return f'Thank you for been a user {name}'
+		new_user = User(first_name, last_name, email, password)
+
+		db.session.add(new_user)
+		db.session.commit()
+		flash(f'Thank you for been a user {new_user.first_name}!', 'primary')
+		return redirect(url_for('pokemon.home'))
+
 	else:
 		return render_template('signup.html', form=form)
 
@@ -55,11 +70,6 @@ def signup():
 def students():
 	student_list = ['Justin', 'Britt', 'Omar']
 	return render_template('students.html', students=student_list)
-
-
-@bp.route('/')
-def home():
-	return render_template('index.html')
 
 
 @bp.route("/projects")
