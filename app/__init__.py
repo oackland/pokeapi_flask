@@ -1,11 +1,36 @@
 from flask import Flask
-from .routes import bp as pokemon_bp
-from config import SECRET_KEY, DATABASE_URL
+from flask_login import LoginManager
+from flask_migrate import Migrate
 
-app = Flask(__name__)
-app.register_blueprint(pokemon_bp)
-app.config['SECRET_KEY'] = SECRET_KEY
-app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
+from config import Config
+from .models import User, db
+from .routes import bp as pokemon_bp
+
+
+def create_app():
+	app = Flask(__name__)
+	app.config.from_object(Config)
+
+	# db Initialize
+	login_manager = LoginManager()
+	db.init_app(app)
+	migrate = Migrate(app, db)
+	login_manager.init_app(app)
+
+	login_manager.login_view = 'login'
+	login_manager.login_message = 'danger'
+	# Register the blueprint
+	app.register_blueprint(pokemon_bp)
+
+	@login_manager.user_loader
+	def load_user(user_id):
+		return User.query.get(user_id)
+
+	from . import routes, models
+
+	return app
+
 
 if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=5000)
+	app = create_app()
+	app.run()

@@ -1,5 +1,7 @@
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+
+from flask_login import UserMixin
+from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash
 
 db = SQLAlchemy()
@@ -7,13 +9,39 @@ db = SQLAlchemy()
 
 class User(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True)
-	username = db.Column(db.String(50), unique=True, nullable=False)
-	email = db.Column(db.String(100), unique=True, nullable=False)
-	password_hash = db.Column(db.String(128), nullable=False)
-	created_at = db.Column(db.DateTime, default=datetime.utcnow)
+	first_name = db.Column(db.String, nullable=False)
+	last_name = db.Column(db.String, nullable=False)
+	email = db.Column(db.String, unique=True, nullable=False)
+	password = db.Column(db.String, nullable=False)
+	date_created = db.Column(db.DateTime, default=datetime.utcnow())
 
-	def set_password(self, password):
-		self.password_hash = generate_password_hash(password)
+	def __init__(self, first_name, last_name, email, password):
+		self.first_name = first_name
+		self.last_name = last_name
+		self.email = email
+		self.password = generate_password_hash(password)
+# Implement the UserMixin methods
 
-	def __repr__(self):
-		return f"<User {self.username}>"
+
+def get_id(self):
+	return str(self.id)  # Convert to string to satisfy the UserMixin requirement
+
+
+@property
+def is_active(self):
+	return True
+
+
+class Post(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	title = db.Column(db.String)
+	caption = db.Column(db.String)
+	img_url = db.Column(db.String, nullable=False)
+	date_created = db.Column(db.DateTime, default=datetime.utcnow())
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+	def __init__(self, title, caption, img_url, user_id):
+		self.title = title
+		self.caption = caption
+		self.img_url = img_url
+		self.user_id = user_id

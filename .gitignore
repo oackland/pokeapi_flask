@@ -1,4 +1,6 @@
-/pokeapi_flask.iml
-/.idea/
 pokeapi_flask.iml
+.idea/
 .env
+pyenv/
+/__pycache__/
+db.py
