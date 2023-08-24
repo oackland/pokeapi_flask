@@ -1,5 +1,14 @@
 ### POKEMON API
 
+```mermaid
+graph LR
+    A[Toro pokeapi] --> B[api]
+    A[Toro pokeapi] --> C[blueprint]
+    A[Toro pokeapi] --> D[login / signup]
+    B[api] --> E[get data]
+    B[api] --> F[post data]
+```
+
 This Project contain:
 
 - api connection
