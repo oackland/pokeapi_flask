@@ -1,12 +1,12 @@
-{% extends "base_nosignup.html" %}
-<title>{% block title %}Sign up{% endblock %}</title>
+{% extends "base.html" %}
+<title>{% block title %}HOME{% endblock %}</title>
 {% block content %}
 	<section class="py-5">
 		<div class="container py-5">
 			<div class="row mb-4 mb-lg-5">
 				<div class="col-md-8 col-xl-6 text-center mx-auto">
-					<p class="fw-bold text-success mb-2">Sign up</p>
-					<h2 class="fw-bold">Welcome</h2>
+					<p class="fw-bold text-success mb-2">Login</p>
+					<h2 class="fw-bold">Welcome back</h2>
 				</div>
 			</div>
 			<div class="row d-flex justify-content-center">
@@ -22,32 +22,16 @@
 							<form method="post">
 								{{ form.hidden_tag() }}
 								<div class="mb-3">
-									{{ form.first_name.label(class='form-label') }}
-									{{ form.first_name(class='form-control') }}
+									{{ form.email(class='form-control', placeholder='Enter your email') }}
+
 								</div>
 								<div class="mb-3">
-									{{ form.last_name.label(class='form-label') }}
-									{{ form.last_name(class='form-control') }}
-								</div>
-								<div class="mb-3">
-									{{ form.email.label(class='form-label') }}
-									{{ form.email(class='form-control') }}
-								</div>
-								<div class="mb-3">
-									{{ form.password.label(class='form-label') }}
 									{{ form.password(class='form-control') }}
 								</div>
 								<div class="mb-3">
-									{{ form.confirm_password.label(class='form-label') }}
-									{{ form.confirm_password(class='form-control') }}
-								</div>
-								<div class="mb-3">
 									{{ form.submit_btn(class='btn btn-primary shadow d-block w-100') }}
-
 								</div>
-								<p class="text-muted">Already have an account?&nbsp;<a
-										href="{{ url_for('pokemon.login') }}">Log in</a>
-								</p>
+								<p class="text-muted">Forgot your password?</p>
 							</form>
 						</div>
 					</div>
