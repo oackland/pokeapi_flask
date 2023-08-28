@@ -5,8 +5,11 @@
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$" />
-    <orderEntry type="jdk" jdkName="Python 3.11 (pokeapi_flask)" jdkType="Python SDK" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/app/blueprints/posts/post_templates" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/pyenv" isTestSource="false" />
+    </content>
+    <orderEntry type="jdk" jdkName="Python 3.11" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />
   </component>
@@ -16,7 +19,8 @@
       <list>
         <option value="$MODULE_DIR$/app/templates" />
         <option value="$MODULE_DIR$/app/blueprints/auth/auth_templates" />
-        <option value="$MODULE_DIR$/app/templates/includes" />
+        <option value="$MODULE_DIR$/app/blueprints/main/main_templates" />
+        <option value="$MODULE_DIR$/app/blueprints/posts/posts_templates" />
       </list>
     </option>
   </component>

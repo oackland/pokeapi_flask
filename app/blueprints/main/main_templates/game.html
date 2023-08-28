@@ -1,0 +1,107 @@
+{% extends'base.html' %}
+{% block content %}
+	<link rel="stylesheet" href="../../../static/css/main.css">
+	<style>
+		body
+		{
+			font-family : Arial, sans-serif;
+			margin      : 20px;
+			}
+
+		.card .card__shine,
+		.card .card__glare:after
+		{
+			clip-path : var(--clip);
+			/* Your existing CSS rules */
+			}
+
+		.card .card__shine:before
+		{
+			content : "";
+			/* Your existing CSS rules */
+			}
+
+		.card .card__shine:after
+		{
+			content : "";
+			/* Your existing CSS rules */
+			}
+
+		.card .card__glare,
+		.card .card__glare:after
+		{
+			opacity : calc(var(--card-opacity) * .8);
+			/* Your existing CSS rules */
+			}
+
+		/* Rest of your CSS code */
+
+	</style>
+	<body>
+	<section id="poke_section">
+		<h2 class="h2">POKEDEX</h2>
+		<form action="/fetch_pokemon_data" method="post">
+			<div class="poke_container">
+				<div class="poke_inp">
+					<label for="pokemonName" class="insert_label"></label>
+					<input type="text" id="pokemonName" name="pokemonName" required placeholder="Enter Pokémon Name:">
+				</div>
+
+				<!-- Your form content -->
+
+				<div class="back">
+					<div class="card">
+						<h2 class="pokemon_name">{{ pokemon_data.name }}</h2>
+						<div class="img-container" id="img-container">
+							<img src="{{ pokemon_data.sprite_url }}" alt="Pokedex" class="pokemon-image">
+						</div>
+						<p>Base Experience: <span>{{ pokemon_data.base_experience }}</span></p>
+						<p>Ability: <span>{{ pokemon_data.ability }}</span></p>
+						<p>Attack: <span>{{ pokemon_data.attack }}</span></p>
+						<p>Defense: <span>{{ pokemon_data.defense }}</span></p>
+					</div>
+				</div>
+			</div>
+
+			{% if error_message %}
+				<div id="errorDiv" style="color: red;">
+					<p>{{ error_message }}</p>
+				</div>
+			{% endif %}
+		</form>
+	</section>
+
+	<script>
+		const pokemonName = "{{ pokemon_data.name }}"; // Replace with the actual Pokémon name
+		fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+				.then(response => response.json())
+				.then(data => {
+					const types = data.types;
+					const imgContainer = document.getElementById('img-container');
+
+					if (types.length > 0) {
+						const type = types[0].type.name; // Assuming the first type is used for background color
+
+						// Set the background color based on the type
+						switch (type) {
+							case 'fire':
+								imgContainer.style.backgroundColor = '#1a5a70';
+								break;
+							case 'water':
+								imgContainer.style.backgroundColor = '#ff4500';
+								break;
+							case 'grass':
+								imgContainer.style.backgroundColor = '#228b22';
+								break;
+								// Add more cases for other types
+							default:
+								imgContainer.style.backgroundColor = '#'; // Default background color
+						}
+					}
+				})
+				.catch(error => {
+					console.log('Error:', error);
+				});
+	</script>
+
+{% endblock %}

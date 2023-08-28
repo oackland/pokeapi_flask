@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-bs-theme="dark" lang="en">
+<html lang="en">
 
 <head>
 	<meta charset="utf-8">
@@ -13,41 +13,68 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-md sticky-top py-3 navbar-dark" id="mainNav">
+{% block flash_messages %}
+	<div id="flash-messages"></div>
+{% endblock %}
+<script>
+	// Function to display flash messages in the middle of the screen
+	function displayFlashMessage(message, messageType, elementId) {
+		const flashMessagesElement = document.getElementById('flash-messages');
+		const flashMessageElement = document.createElement('div');
+		flashMessageElement.className = `flash-message ${messageType}`;
+		flashMessageElement.textContent = message;
+		flashMessagesElement.appendChild(flashMessageElement);
 
-	<div class="container">
-		<a class="navbar-brand d-flex align-items-center" href="{{ url_for('bp.home') }}">
-			<span>Toro Pokemon</span>
-		</a>
-		<button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1">
-			<span class="visually-hidden">Toggle navigation</span>
-			<span class="navbar-toggler-icon"></span>
-		</button>
+		// Remove the flash message after a certain duration
+		setTimeout(() => {
+			flashMessagesElement.removeChild(flashMessageElement);
+		}, 5000);
+	}
 
-		{% if current_user.is_authenticated %}
-			<div class="collapse navbar-collapse" id="navcol-1">
-				<ul class="navbar-nav mx-auto">
-					<li class="nav-item"><a class="nav-link active" href="{{ url_for('bp.home') }}">Home</a></li>
-					<li class="nav-item"></li>
-					<li class="nav-item"><a class="nav-link" href="{{ url_for('bp.game') }}">Game</a></li>
-					<li class="nav-item"><a class="nav-link" href="{{ url_for('bp.projects') }}">Project</a></li>
-					<li class="nav-item"><a class="nav-link" href="{{ url_for('bp.contacts') }}">Contacts</a></li>
-					{#					<li class="nav-item"><a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a></li>#}
-				</ul>
-				<a class="btn btn-primary shadow" role="button" href="{{ url_for('auth.logout') }}">Logout</a>
-			</div>
-		{% else %}
-			<ul class="navbar-nav mx-auto">
-				<li class="nav-item"><a class="nav-link active" href="{{ url_for('bp.home') }}">Home</a></li>
-				<li class="nav-item"></li>
-				<li class="nav-item"><a class="nav-link" href="{{ url_for('bp.projects') }}">Project</a></li>
-				<li class="nav-item"><a class="nav-link" href="{{ url_for('bp.contacts') }}">Contacts</a></li>
-				<li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Login</a></li>
-			</ul>
-			<a class="btn btn-primary shadow" role="button" href="{{ url_for('auth.signup') }}">Sign up</a>
-		{% endif %}
-	</div>
-</nav>
+	// Retrieve flash messages from the server and display them
+	const flashMessages = JSON.parse('{{ get_flashed_messages()|tojson|safe }}');
+	flashMessages.forEach((flashMessage) => {
+		const [message, messageType, elementId] = flashMessage;
+		displayFlashMessage(message, messageType, elementId);
+	});
+</script>
+{#<nav class="navbar navbar-expand-md sticky-top py-3 navbar-dark" id="mainNav">#}
+{##}
+{#	<div class="container">#}
+{#		<a class="navbar-brand d-flex align-items-center" href="{{ url_for('bp.home') }}">#}
+{#			<span>Toro Pokemon</span>#}
+{#		</a>#}
+{#		<button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1">#}
+{#			<span class="visually-hidden">Toggle navigation</span>#}
+{#			<span class="navbar-toggler-icon"></span>#}
+{#		</button>#}
+{##}
+{#		{% if current_user.is_authenticated %}#}
+{#			<div class="collapse navbar-collapse" id="navcol-1">#}
+{#				<ul class="navbar-nav mx-auto">#}
+{#					<li class="nav-item"><a class="nav-link active" href="{{ url_for('bp.home') }}">Home</a></li>#}
+{#					<li class="nav-item"></li>#}
+{#					<li class="nav-item"><a class="nav-link" href="{{ url_for('bp.game') }}">Game</a></li>#}
+{#					<li class="nav-item"><a class="nav-link" href="{{ url_for('bp.projects') }}">Project</a></li>#}
+{#					<li class="nav-item"><a class="nav-link" href="{{ url_for('posts.create_post') }}">Contacts</a></li>#}
+{#				</ul>#}
+{#				<div class="d-flex">#}
+{#					<a class="btn btn-primary shadow" role="button" href="{{ url_for('auth.logout') }}">Logout</a>#}
+{#				</div>#}
+{#			</div>#}
+{#		{% else %}#}
+{#			<ul class="navbar-nav mx-auto">#}
+{#				<li class="nav-item"><a class="nav-link active" href="{{ url_for('main.home') }}">Home</a></li>#}
+{#				<li class="nav-item"></li>#}
+{#				<li class="nav-item"><a class="nav-link" href="{{ url_for('main.projects') }}">Project</a></li>#}
+{#				<li class="nav-item"><a class="nav-link" href="{{ url_for('main.contacts') }}">Contacts</a></li>#}
+{#				<li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Login</a></li>#}
+{##}
+{#			</ul>#}
+{#			<a class="btn btn-primary shadow" role="button" href="{{ url_for('auth.signup') }}">Sign up</a>#}
+{#		{% endif %}#}
+{#	</div>#}
+{#</nav>#}
 {% with messages = get_flashed_messages(with_categories=true) %}
 	{% if messages %}
 		{% for category, message in messages %}

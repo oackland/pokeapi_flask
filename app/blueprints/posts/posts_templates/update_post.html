@@ -1,0 +1,16 @@
+{% extends 'base_nosignup.html' %}
+
+{% block title %}
+	Update Post
+{% endblock %}
+
+{% block content %}
+	<h1>Update Post</h1>
+	<form method="POST" action="{{ url_for('posts.update_post', post_id=post.id) }}">
+		{{ form.hidden_tag() }}
+		{{ form.title.label }} {{ form.title() }}
+		{{ form.caption.label }} {{ form.caption() }}
+		{{ form.img_url.label }} {{ form.img_url() }}
+		<button type="submit">Update</button>
+	</form>
+{% endblock %}

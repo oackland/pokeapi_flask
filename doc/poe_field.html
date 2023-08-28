@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Pokémon Battlefield - 90s Style</title>
+	<style>
+		body
+		{
+			margin           : 0;
+			display          : flex;
+			justify-content  : center;
+			align-items      : center;
+			min-height       : 100vh;
+			background-color : #000;
+			}
+
+		.battlefield
+		{
+			width            : 240px;
+			height           : 160px;
+			background-color : #222;
+			border           : 2px solid #666;
+			position         : relative;
+			}
+
+		.pokemon
+		{
+			width            : 48px;
+			height           : 48px;
+			background-color : #fff;
+			border           : 2px solid #aaa;
+			position         : absolute;
+			bottom           : 10px;
+			}
+
+		.pokemon img
+		{
+			max-width : 100%;
+			height    : auto;
+			display   : block;
+			}
+
+		.player1
+		{
+			left : 20px;
+			}
+
+		.player2
+		{
+			right     : 20px;
+			transform : scaleX(-1);
+			}
+	</style>
+</head>
+<body>
+<div class="battlefield">
+	<div class="pokemon player1">
+		<img src="https://via.placeholder.com/48x48" alt="Player 1's Pokémon">
+	</div>
+	<div class="pokemon player2">
+		<img src="https://via.placeholder.com/48x48" alt="Player 2's Pokémon">
+	</div>
+</div>
+</body>
+</html>

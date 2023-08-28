@@ -2,7 +2,6 @@
 #poke_section
 {
 	height           : 100vh;
-	
 	display          : flex;
 	flex-direction   : column;
 	justify-content  : center;
@@ -13,12 +12,8 @@
 
 .poke_container
 {
-	display         : flex;
-	flex-direction  : column;
-	max-width       : 100%;
-	justify-content : center;
-	align-items     : center;
-	box-shadow      : 10px 10px 20px rgba(0, 0, 0, 0.4);
+	margin-bottom : 100vh;
+	
 	}
 
 

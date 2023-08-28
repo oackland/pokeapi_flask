@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>rest api</title>
+</head>
+<body>
+<h1>feel lucky? see if you can get a shiny</h1>
+<form id="cardForm">
+	<label for="cardName">Enter Pokemon Name:</label>
+	<input type="text" id="cardName" name="cardName">
+	<button type="submit">Get Card</button>
+</form>
+<div id="cardData"></div>
+
+<script>
+	// Your JavaScript code here
+	document.getElementById('cardForm').addEventListener('submit', async function (event) {
+		event.preventDefault();
+
+		const cardName = document.getElementById('cardName').value;
+		const response = await fetch(`/api/cards/${cardName}`);
+		const cardData = await response.json();
+		cardData.supertype = undefined;
+		cardData.rarity = undefined;
+
+
+		const cardDataDiv = document.getElementById('cardData');
+
+		let html = `
+		  <h2>${cardData.name}</h2>
+		  <p>Supertype: ${cardData.supertype}</p>
+		`;
+
+		if (cardData.images && cardData.images.small.includes("shiny")) {
+			html += `<p>This card is a shiny (holofoil) card!</p>`;
+		}
+
+		if (cardData.rarity === "Rare") {
+			html += `<p>This card is rare!</p>`;
+		}
+
+		cardDataDiv.innerHTML = html;
+
+
+	});
+</script>
+</body>
+</html>

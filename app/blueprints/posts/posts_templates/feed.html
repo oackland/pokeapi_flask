@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Feed Page
+{% endblock %}
+
+{% block content %}
+
+	{% for post in posts[::-1] %}
+		<div class="card mx-auto mt-3" style="width: 18rem;">
+			<img src="{{ post.img_url }}" class="card-img-top" alt="{{ post.title }}">
+			<div class="card-body">
+				<h5 class="card-title">{{ post.title }}</h5>
+				<p class="card-text">{{ post.caption }}</p>
+
+				{% if current_user.id == post.user_id %}
+					<a href="{{ url_for('posts.update_post', post_id=post.id) }}"
+					   class="btn d-block btn-dark w-50 mx-auto mt-3">Update</a>
+					<form action="{{ url_for('posts.delete_post', post_id=post.id) }}" method="POST">
+						<input type="hidden" name="_method" value="DELETE">
+						<button type="submit" class="btn btn-danger">Delete</button>
+					</form>
+				{% endif %}
+			</div>
+		</div>
+	{% endfor %}
+{% endblock %}

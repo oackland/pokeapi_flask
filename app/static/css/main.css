@@ -215,6 +215,11 @@ hr
 	opacity    : .25
 	}
 
+body
+{
+	height : 100vh;
+	}
+
 h6,
 .h6,
 h5,
@@ -370,6 +375,35 @@ blockquote
 {
 	margin : 0 0 1rem
 	}
+
+.flash-message
+{
+	position         : fixed;
+	top              : 50%;
+	left             : 50%;
+	transform        : translate(-50%, -50%);
+	padding          : 10px;
+	background-color : #fff;
+	border           : 1px solid #ccc;
+	border-radius    : 5px;
+	box-shadow       : 0 2px 5px rgba(0, 0, 0, 0.3);
+	}
+
+.flash-message.success
+{
+	background-color : #dff0d8;
+	border-color     : #d6e9c6;
+	color            : #3c763d;
+	}
+
+.flash-message.error
+{
+	background-color : #f2dede;
+	border-color     : #ebccd1;
+	color            : #a94442;
+	}
+
+/* Add more styles for other message types if needed */
 
 b,
 strong
@@ -11757,6 +11791,7 @@ fieldset:disabled .btn
 
 .bg-dark
 {
+	
 	--bs-bg-opacity  : 1;
 	background-color : rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important
 	}

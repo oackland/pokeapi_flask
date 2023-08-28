@@ -1,0 +1,27 @@
+html
+<form method="POST" action="{{ url_for('posts.catch_pokemon') }}">
+	{{ form.hidden_tag() }}
+	<div>
+		<label for="poke_name">Pokemon Name:</label>
+		{{ form.poke_name(class="form-control", id="poke_name") }}
+	</div>
+	<div>
+		<label for="poke_hp">Pokemon HP:</label>
+		{{ form.poke_hp(class="form-control", id="poke_hp") }}
+	</div>
+	<div>
+		<label for="poke_def">Pokemon Defense:</label>
+		{{ form.poke_def(class="form-control", id="poke_def") }}
+	</div>
+	<div>
+		<label for="poke_att">Pokemon Attack:</label>
+		{{ form.poke_att(class="form-control", id="poke_att") }}
+	</div>
+	<div>
+		<label for="poke_sprite">Pokemon Image:</label>
+		{{ form.poke_sprite(class="form-control", id="poke_sprite") }}
+	</div>
+	<div>
+		{{ form.submit_btn(class="btn btn-primary") }}
+	</div>
+</form>
