@@ -1,3 +1,8 @@
+#  Copyright (c) 2023 Oackland Toro
+#
+#  The above copyright notice and this permission notice shall be included in all
+#  copies or substantial portions of the Software.
+
 import requests
 from flask import Blueprint, render_template, request, flash, url_for, redirect
 from flask_login import login_user, logout_user, login_required
@@ -66,7 +71,7 @@ def logout():
 
 @bp.route("/projects")
 def projects():
-	return redirect(url_for('pokemon.projects'))
+	return render_template("projects.html")
 
 
 @bp.route("/contact")
