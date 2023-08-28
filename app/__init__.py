@@ -1,3 +1,8 @@
+#  Copyright (c) 2023 Oackland Toro
+#
+#  The above copyright notice and this permission notice shall be included in all
+#  copies or substantial portions of the Software.
+
 from flask import Flask
 from flask_login import LoginManager
 from flask_migrate import Migrate
@@ -19,7 +24,9 @@ def create_app():
 
 	login_manager.login_view = 'login'
 	login_manager.login_message = 'danger'
+	from app.blueprints.auth import auth
 	# Register the blueprint
+	app.register_blueprint(auth)
 	app.register_blueprint(pokemon_bp)
 
 	@login_manager.user_loader
