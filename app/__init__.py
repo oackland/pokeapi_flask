@@ -3,13 +3,16 @@
 #  The above copyright notice and this permission notice shall be included in all
 #  copies or substantial portions of the Software.
 
+#
+#  The above copyright notice and this permission notice shall be included in all
+#  copies or substantial portions of the Software.
+
 from flask import Flask
 from flask_login import LoginManager
 from flask_migrate import Migrate
 
 from config import Config
 from .models import User, db
-from .routes import bp as pokemon_bp
 
 
 def create_app():
@@ -25,15 +28,14 @@ def create_app():
 	login_manager.login_view = 'login'
 	login_manager.login_message = 'danger'
 	from app.blueprints.auth import auth
+	from app.blueprints.main import main
 	# Register the blueprint
+	app.register_blueprint(main)
 	app.register_blueprint(auth)
-	app.register_blueprint(pokemon_bp)
 
 	@login_manager.user_loader
 	def load_user(user_id):
 		return User.query.get(user_id)
-
-	from . import routes, models
 
 	return app
 
