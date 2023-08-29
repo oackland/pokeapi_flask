@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Pokémon Card</title>
+	<script>
+		function prettyPrintList(list, keyName) {
+			return list.map(item => item[keyName]).join(', ');
+		}
+
+		async function fetchCard() {
+			const name = document.getElementById("pokemonName").value;
+			const response = await fetch(`/api/card/${name}`);
+			if (response.ok) {
+				const card = await response.json();
+				for (const [key, value] of Object.entries(card)) {
+					if (document.getElementById(key)) {
+						if (Array.isArray(value) && value.length > 0 && typeof value[0] === 'object') {
+							// Pretty print if the field is an array of objects
+							document.getElementById(key).textContent = prettyPrintList(value, 'name');
+						} else {
+							document.getElementById(key).textContent = JSON.stringify(value);
+						}
+					}
+				}
+				if (card.images && card.images.small) {
+					document.getElementById("image").src = card.images.small;
+				}
+			} else {
+				alert("Card not found, Try Again! ");
+			}
+		}
+
+	</script>
+</head>
+<body>
+
+<form method="POST">
+	{{ form.hidden_tag() }}
+
+	<div>
+		{{ form.abilities.label }}
+		{{ form.abilities() }}
+	</div>
+
+	<div>
+		{{ form.artist.label }}
+		{{ form.artist() }}
+	</div>
+
+	<div>
+		{{ form.ancientTrait.label }}
+		{{ form.ancientTrait() }}
+	</div>
+
+	<div>
+		{{ form.attacks.label }}
+		{{ form.attacks() }}
+	</div>
+	
+	<div>
+		{{ form.weaknesses.label }}
+		{{ form.weaknesses() }}
+	</div>
+
+	<div>
+		{{ form.submit() }}
+	</div>
+</form>
+
+</body>
+</html>

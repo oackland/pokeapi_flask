@@ -6,8 +6,9 @@
 #
 #  The above copyright notice and this permission notice shall be included in all
 #  copies or substantial portions of the Software.
+
 from flask import Blueprint
 
-battle = Blueprint("battle", __name__, template_folder="battle_templates")
+form = Blueprint("form", __name__, template_folder="form_templates")
 
 from . import routes

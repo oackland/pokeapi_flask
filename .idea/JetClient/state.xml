@@ -1,6 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JetClientState">
+    <option name="draftsState">
+      <draftsState>
+        <option name="requests">
+          <list>
+            <requestState>
+              <option name="id" value="e113f2a4-ee07-4daf-9b0f-39988b2536fd" />
+              <option name="method" value="GET" />
+              <option name="name" value="Draft" />
+            </requestState>
+            <requestState>
+              <option name="auth">
+                <authState>
+                  <option name="apiKey">
+                    <apiKeyAuthState>
+                      <option name="key" value="https://pokeapi.co/api/v2/pokemon/card/charizard" />
+                    </apiKeyAuthState>
+                  </option>
+                  <option name="type" value="API_KEY" />
+                </authState>
+              </option>
+              <option name="body">
+                <bodyState>
+                  <option name="raw" value="{&#10;  &quot;error&quot;: {&#10;    &quot;message&quot;: &quot;message_iP87&quot;,&#10;    &quot;type&quot;: &quot;type_RW76&quot;,&#10;    &quot;param&quot;: null,&#10;    &quot;code&quot;: null&#10;  }&#10;}" />
+                  <option name="type" value="JSON" />
+                </bodyState>
+              </option>
+              <option name="headers">
+                <list>
+                  <headerState>
+                    <option name="key" value="Content-Type" />
+                    <option name="value" value="application/json" />
+                  </headerState>
+                </list>
+              </option>
+              <option name="id" value="17a4016e-10bb-4b4a-b27e-a6f1e8344ed7" />
+              <option name="method" value="GET" />
+              <option name="name" value="Draft 1" />
+              <option name="url" value="https://pokeapi.co/api/v2/ability/31/" />
+            </requestState>
+          </list>
+        </option>
+      </draftsState>
+    </option>
+    <option name="environmentGroups">
+      <list>
+        <environmentGroupState>
+          <option name="id" value="new_group" />
+          <option name="name" value="New Group" />
+        </environmentGroupState>
+      </list>
+    </option>
     <option name="id" value="f54634af-69d1-42ef-9d72-6ec72a706d08" />
   </component>
 </project>
