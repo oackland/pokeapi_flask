@@ -7,6 +7,10 @@
 #  The above copyright notice and this permission notice shall be included in all
 #  copies or substantial portions of the Software.
 
+#
+#  The above copyright notice and this permission notice shall be included in all
+#  copies or substantial portions of the Software.
+
 # # your task is to create a class to get the card by a name,
 # # type, rarity and description.
 # # Also need to get the battlefield points meaning you will
