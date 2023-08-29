@@ -3,13 +3,6 @@
 #  The above copyright notice and this permission notice shall be included in all
 #  copies or substantial portions of the Software.
 
-#
-#  The above copyright notice and this permission notice shall be included in all
-#  copies or substantial portions of the Software.
-
-#
-#  The above copyright notice and this permission notice shall be included in all
-#  copies or substantial portions of the Software.
 from flask import flash, redirect, url_for
 from flask import render_template, request
 from flask_login import login_user, logout_user
@@ -61,4 +54,4 @@ def signup():
 @auth.route("/logout")
 def logout():
     logout_user()
-    return render_template("projects.html")
+    return render_template("index.html")
