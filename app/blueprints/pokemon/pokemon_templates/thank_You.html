@@ -3,8 +3,9 @@
 {% block title %}Questionnaire{% endblock %}
 {% block content %}
 	<div class="thankyou-hero">
-		<h1>Thank you for completing the questionnaire!</h1>
+		<h1><span style="color:#3cf7b7; font-weight: bolder ">Thank you!</span> for completing the questionnaire!</h1>
 
-		<button class="thankyou-button">HOME</button>
+		<a style="margin-top: 25px" href="{{ url_for('main.home') }}" class="btn btn-primary">Go to Home</a>
+
 	</div>
 {% endblock %}

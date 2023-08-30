@@ -25,7 +25,7 @@ def run_preset_command(command_number):
     elif command_number == 3:
         preset_command = "flask db upgrade"
     elif command_number == 4:
-        preset_command = "flask run --host=0.0.0.0 --port=5001"
+        preset_command = "flask run --host=0.0.0.0 --port=5000"
     else:
         print("Invalid command number")
         return

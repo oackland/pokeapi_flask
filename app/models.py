@@ -228,3 +228,13 @@ class GiftRegistry(db.Model):
         self.recipients = recipients
         self.senders = senders
         self.gifts = gifts
+
+
+class Submission(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    gender = db.Column(db.String(10))
+
+    def __init__(self, name, gender):
+        self.name = name
+        self.gender = gender
