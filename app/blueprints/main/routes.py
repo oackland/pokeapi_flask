@@ -3,18 +3,18 @@
 #  The above copyright notice and this permission notice shall be included in all
 #  copies or substantial portions of the Software.
 
-#
-#  The above copyright notice and this permission notice shall be included in all
-#  copies or substantial portions of the Software.
-
-#
-#  The above copyright notice and this permission notice shall be included in all
-#  copies or substantial portions of the Software.
 import requests
-from flask import render_template, request, app
+from flask import request, render_template
 from flask_login import login_required
 
 from . import main
+
+
+#                                    ######################################
+#                                    #####                              #####
+#                                    ####           Home Page           ####
+#                                    #####                              #####
+#                                    ######################################
 
 
 @main.route("/")
@@ -23,26 +23,36 @@ def home():
     return render_template("index.html")
 
 
+#                                    ######################################
+#                                    #####                              #####
+#                                    ####           Projects            ####
+#                                    #####                              #####
+#                                    ######################################
+
+
 @main.route("/projects")
 def projects():
     return render_template("projects.html")
 
 
-# @main.route("/contact")
-# @login_required
-# def contacts():
-# 	return render_template("contacts.html")
-
-
-# @bp.route("/signup")
-# def signup():
-# 	return render_template("signup.html")
+#                                    ######################################
+#                                    #####                              #####
+#                                    ####        Pokemon game           ####
+#                                    #####                              #####
+#                                    ######################################
 
 
 @main.route("/game")
 @login_required
 def game():
     return render_template("game.html", pokemon_data="pikachu", error_message=None)
+
+
+#                                    ######################################
+#                                    #####                              #####
+#                                    ####           old card            ####
+#                                    #####                              #####
+#                                    ######################################
 
 
 @main.route("/fetch_pokemon_data", methods=["POST"])
@@ -74,10 +84,59 @@ def fetch_pokemon_data():
         )
 
 
-@main.route("/pokedex")
+#                                    ######################################
+#                                    #####                              #####
+#                                    ####           pokemon card         ####
+#                                    #####                              #####
+#                                    ######################################
+
+
+@main.route("/pokedex", methods=["GET", "POST"])
 def pokedex():
-    return render_template("pokedex.html")
+    card_data = None
+    if request.method == "POST":
+        name = request.form.get("name")
+        url = f"https://api.pokemontcg.io/v2/cards?q=name:{name}"
+        response = requests.get(url)
+        if response.status_code == 200:
+            json_data = response.json()
+            if "data" in json_data and len(json_data["data"]) > 0:
+                card_data = json_data["data"][0]
+            else:
+                card_data = "No card found"
+    return render_template("pokedex.html", card=card_data)
 
 
-if __name__ == "__main__":
-    app.run()
+#                                    ######################################
+#                                    #####                              #####
+#                                    ####       END OF SECTION           ####
+#                                    #####                              #####
+#                                    ######################################
+#
+# app = Flask(__name__)
+# # app.secret_key = "s3cr3t"
+#
+#
+# @poke.route("/pokedex", methods=["GET", "POST"])
+# def pokedex():
+#     if "cards" not in session:
+#         session["cards"] = []
+#
+#     if request.method == "POST":
+#         if "add" in request.form:
+#             name = request.form.get("name")
+#             if len(session["cards"]) < 5:
+#                 card_data = Pokemonclass.get_card_by_name(name)
+#                 if card_data:
+#                     session["cards"].append(card_data)
+#                     session.modified = True
+#             else:
+#                 return "Maximum 5 cards allowed", 400
+#         elif "delete" in request.form:
+#             card_id = request.form.get("delete")
+#             session["cards"] = [
+#                 card for card in session["cards"] if card["id"] != card_id
+#             ]
+#             session.modified = True
+#
+#     return render_template("pokedex.html", cards=session["cards"])

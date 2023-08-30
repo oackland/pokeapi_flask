@@ -6,12 +6,8 @@
 #
 #  The above copyright notice and this permission notice shall be included in all
 #  copies or substantial portions of the Software.
-
-#
-#  The above copyright notice and this permission notice shall be included in all
-#  copies or substantial portions of the Software.
 from flask import Blueprint
 
-main = Blueprint("main", __name__, template_folder="main_templates")
+pokemon = Blueprint("pokemon", __name__, template_folder="pokemon_templates")
 
-from . import routes, forms
+from . import routes
