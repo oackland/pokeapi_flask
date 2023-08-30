@@ -4,12 +4,17 @@
 #  copies or substantial portions of the Software.
 
 #
+#  The above copyright notice and this permission notice shall be included in all
+#  copies or substantial portions of the Software.
+
+#
 # #
 # #  The above copyright notice and this permission notice shall be included in all
 # #  copies or substantial portions of the Software.
 from flask import render_template, request, redirect, url_for
 
 from . import pokemon
+from .forms import InitialDataForm
 
 
 #
@@ -24,6 +29,8 @@ from . import pokemon
 
 @pokemon.route("/questionnaire", methods=["GET", "POST"])
 def questionnaire():
+    form = InitialDataForm()
+
     questions = ["Question 1", "Question 2", "Question 3"]  # Add your questions here
     current_question = int(request.form.get("current_question", 0))
 

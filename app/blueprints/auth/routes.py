@@ -3,12 +3,28 @@
 #  The above copyright notice and this permission notice shall be included in all
 #  copies or substantial portions of the Software.
 
-from flask import flash, redirect, url_for
-from flask import render_template, request
-from flask_login import login_user, logout_user
+#
+#  The above copyright notice and this permission notice shall be included in all
+#  copies or substantial portions of the Software.
+
+#
+#  The above copyright notice and this permission notice shall be included in all
+#  copies or substantial portions of the Software.
+
+#
+#  The above copyright notice and this permission notice shall be included in all
+#  copies or substantial portions of the Software.
+
+#
+#  The above copyright notice and this permission notice shall be included in all
+#  copies or substantial portions of the Software.
+
+from flask import flash, redirect, url_for, request
+from flask import render_template
+from flask_login import login_user, logout_user, current_user
 from werkzeug.security import check_password_hash
 
-from app.models import User, db
+from app.models import User, db, InitialData
 from . import auth
 from .forms import LoginForm, SignupForm
 
@@ -23,13 +39,39 @@ def login():
         queried_user = User.query.filter(User.email == email).first()
         if queried_user and check_password_hash(queried_user.password, password):
             login_user(queried_user)
-            flash(f"Welcome back {queried_user.first_name}!", "primary")
-            return redirect(url_for("main.game"))
+
+            # Check if the user has a team value in InitialData
+            initial_data = InitialData.query.filter_by(user_id=queried_user.id).first()
+            if initial_data and initial_data.team:
+                flash(f"Welcome back {queried_user.first_name}!", "primary")
+                return redirect(url_for("main.game"))
+            else:
+                flash("Please complete the questionnaire to proceed", "info")
+                return redirect(url_for("pokemon.questionnaire"))
         else:
             flash("Invalid email or password", "danger")
             return redirect(url_for("main.home"))
     else:
         return render_template("login.html", form=form)
+
+
+# @auth.route("/login", methods=["GET", "POST"])
+# def login():
+#     form = LoginForm()
+#     if request.method == "POST" and form.validate_on_submit():
+#         email = form.email.data
+#         password = form.password.data
+#
+#         queried_user = User.query.filter(User.email == email).first()
+#         if queried_user and check_password_hash(queried_user.password, password):
+#             login_user(queried_user)
+#             flash(f"Welcome back {queried_user.first_name}!", "primary")
+#             return redirect(url_for("main.game"))
+#         else:
+#             flash("Invalid email or password", "danger")
+#             return redirect(url_for("main.home"))
+#     else:
+#         return render_template("login.html", form=form)
 
 
 @auth.route("/signup", methods=["GET", "POST"])
@@ -55,3 +97,13 @@ def signup():
 def logout():
     logout_user()
     return render_template("index.html")
+
+
+@auth.route("/check_team_value", methods=["GET"])
+def check_team_value():
+    initial_data = InitialData.query.filter_by(user_id=current_user.id).first()
+
+    if initial_data and initial_data.team:
+        return render_template("home.html")
+    else:
+        return render_template("questionnaire.html")
