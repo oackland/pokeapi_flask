@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+	<title>Questionnaire</title>
+</head>
+<body>
+<h1>Questionnaire</h1>
+<form method="POST" action="/questionnaire">
+	<label for="answer">Question: {{ questions[current_question] }}</label>
+	<input type="text" name="answer" id="answer" autofocus>
+	<input type="hidden" name="current_question" value="{{ current_question }}">
+</form>
+
+<script>
+	document.addEventListener("keydown", function (event) {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			document.querySelector("form").submit();
+		}
+	});
+</script>
+</body>
+</html>
