@@ -167,18 +167,16 @@ class Pokemon(db.Model):
     type = db.Column(db.String(50))
     description = db.Column(db.Text)
 
-    def __init__(self, user_id, name, me_type, description):
+    def __init__(self, user_id, name, type, description):
         self.user_id = user_id
         self.name = name
-        self.type = me_type
+        self.type = type
         self.description = description
 
 
 class PokemonCard(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(
-        db.Integer, db.ForeignKey("user.id")
-    )  # Corrected foreign key definition
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     abilities = db.Column(db.JSON)
     artist = db.Column(db.String())
     ancientTrait = db.Column(db.String())

@@ -1,9 +1,15 @@
 from flask import render_template
+from flask_login import current_user
 
-from app.models import InitialData
 from app.models import db
 from . import pokemon
 from .forms import InitialDataForm
+from ...models import InitialData
+
+
+@pokemon.route("/thank-you")
+def thank_you():
+    return render_template("thank_You.html")
 
 
 @pokemon.route("/questionnaire", methods=["GET", "POST"])
@@ -11,8 +17,9 @@ def questionnaire():
     form = InitialDataForm()
 
     if form.validate_on_submit():
+        user_id = current_user.id
         new_data = InitialData(
-            user_id=1,
+            user_id=user_id,
             level=1,
             xp=0,
             items={},
@@ -23,11 +30,12 @@ def questionnaire():
         )
         db.session.add(new_data)
         db.session.commit()
-        return render_template("thank_you.html")
+
+        user_id = current_user.id
+
+        initial_data = InitialData.query.filter_by(user_id=user_id).first()
+        print(initial_data.team)
+
+        return render_template("thank_You.html")
 
     return render_template("questionnaire.html", form=form)
-
-
-@pokemon.route("/thank-you")
-def thank_you():
-    return render_template("thank_you.html")
