@@ -7,3 +7,4 @@ myenv
 db.py
 !/pokeapi_flask.iml
 /venv
+.app_old
